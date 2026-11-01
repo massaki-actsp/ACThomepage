@@ -1,0 +1,21 @@
+{% extends 'agenda/base.html' %}
+{% block page_title %}Segurança | Admin ACT-SP{% endblock %}
+{% block page_heading %}Segurança{% endblock %}
+{% block content %}
+<section class="admin-security-section" aria-labelledby="password-heading">
+   <h2 id="password-heading">Alterar senha do administrador</h2>
+   <p>Após a troca, todas as sessões administrativas serão encerradas.</p>
+   {% if error %}<p class="admin-flash admin-flash-error" role="alert">{{ error }}</p>{% endif %}
+   <form class="admin-login-form" method="post" action="{{ url_for('admin_change_password') }}">
+      <input type="hidden" name="csrf_token" value="{{ admin_csrf_token() }}">
+      <label for="current-password">Senha atual</label>
+      <input id="current-password" name="current_password" type="password" autocomplete="current-password" required>
+      <label for="new-password">Nova senha</label>
+      <input id="new-password" name="new_password" type="password" autocomplete="new-password" minlength="12" maxlength="128" aria-describedby="password-hint" required>
+      <p id="password-hint">Use de 12 a 128 caracteres.</p>
+      <label for="confirm-password">Confirmar nova senha</label>
+      <input id="confirm-password" name="confirm_password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
+      <button class="admin-button primary" type="submit"><i class="fa fa-lock" aria-hidden="true"></i> Alterar senha</button>
+   </form>
+</section>
+{% endblock %}

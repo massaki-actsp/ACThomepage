@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>ACT-SP</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+      <!-- style css -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+      <!-- responsive-->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+      <!-- awesome fontfamily -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+   </head>
+   <!-- body -->
+   <body class="main-layout inner_page">
+      <!-- loader  -->
+      <div class="loader_bg">
+         <div class="loader"><img src="{{ url_for('static', filename='images/loading.gif') }}" alt="" /></div>
+      </div>
+      <!-- end loader -->
+      <!-- header -->
+      <header>
+         <div class="header">
+            <div class="container-fluid">
+               <div class="row d_flex">
+                  <div class=" col-md-2 col-sm-3 col logo_section">
+                     <div class="full">
+                        <div class="center-desk">
+                           <div class="logo">
+                              <a href="index.html"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="#" /></a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-8 col-sm-9">
+                     <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                           <ul class="navbar-nav mr-auto">
+                              <li class="nav-item">
+                                 <a class="nav-link" href="index.html">Home</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="about.html">Sobre</a>
+                              </li>
+                              <li class="nav-item active">
+                                 <a class="nav-link" href="we_do.html">O que fazemos?</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="portfolio.html">Portfólio </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="mural.html">Mural</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="contact.html">Contato</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="/admin">Admin</a>
+                              </li>
+                           </ul>
+                        </div>
+                     </nav>
+                  </div>
+                  <div class="col-md-2 d_none">
+                     <ul class="email text_align_right">
+                        <li> <a href="Javascript:void(0)"> <i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"> </i></a> </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </header>
+      <!-- end header -->
+      <!-- we_do -->
+      <div class="we_do">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage text_align_center">
+                     <h2>O que fazemos?</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div id="we1" class="carousel slide" data-ride="carousel">
+                     <ol class="carousel-indicators">
+                        <li data-target="#we1" data-slide-to="0" class="active"></li>
+                        <li data-target="#we1" data-slide-to="1"></li>
+                        <li data-target="#we1" data-slide-to="2"></li>
+                        <li data-target="#we1" data-slide-to="3"></li>
+                     </ol>
+                     <div class="carousel-inner">
+                        <div class="carousel-item active">
+                           <div class="container-fluid">
+                              <div class="carousel-caption we1_do">
+                                 <div class="row">
+                                    <div class="col-md-4">
+                                       <div id="bo_ho" class="we_box text_align_left">
+                                          <i><img src="{{ url_for('static', filename='images/we1.png') }}" alt="#"/></i>
+                                          <h3>Assessoria /<br>Consultoria Técnica</h3>
+                                          <p> Assessoria tecnológica; <br> Educacional; <br> Assessoria em inovação;  <br> Implantação de sistemas; <br> Automação de processos <br> e Apoio estratégico para pequenas empresas.
+                                          </p>
+                                          <a class="read_more" href="we_do">Read More</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <div id="bo_ho" class="we_box text_align_left">
+                                          <i><img src="{{ url_for('static', filename='images/we1.png') }}" alt="#"/></i>
+                                          <h3>Capacitações & <br> Workshops </h3>
+                                          <p> Treinamentos; <br> Cursos; <br> Workshops; <br> Mentorias; <br> Educação corporativa; <br> Desenvolvimento profissional; <br> Formação técnica.
+                                          </p>
+                                          <a class="read_more" href="we_do">Read More</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <div id="bo_ho" class="we_box text_align_left">
+                                          <i><img src="{{ url_for('static', filename='images/we1.png') }}" alt="#"/></i>
+                                          <h3>Soluções <br> Tecnológicas</h3>
+                                          <p> Desenvolvimento de soluções digitais; <br> Automações; <br> Sistemas Eletrônicos; <br> IoT; <br> Integração de tecnologias; <br> Soluções inteligentes; <br> Softwares personalizados.
+                                          </p>
+                                          <a class="read_more" href="we_do">Read More</a>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="carousel-item">
+                           <div class="container-fluid">
+                              <div class="carousel-caption we1_do">
+                                 <div class="row">
+                                    <div class="col-md-4">
+                                       <div id="bo_ho" class="we_box text_align_left">
+                                          <i><img src="{{ url_for('static', filename='images/we1.png') }}" alt="#"/></i>
+                                          <h3>Soluções <br>para Pessoas</h3>
+                                          <p> Resolução de problemas reais; <br> Desenvolvimento humano e profissional; <br> Acessibilidade tecnológica; <br> Transformação prática.
+                                          </p>
+                                          <a class="read_more" href="we_do">Read More</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <div id="bo_ho" class="we_box text_align_left">
+                                          <i><img src="{{ url_for('static', filename='images/we2.png') }}" alt="#"/></i>
+                                          <h3>App <br>development</h3>
+                                          <p>many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
+                                          </p>
+                                          <a class="read_more" href="we_do">Read More</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <div id="bo_ho" class="we_box text_align_left">
+                                          <i><img src="{{ url_for('static', filename='images/we3.png') }}" alt="#"/></i>
+                                          <h3>website <br>design</h3>
+                                          <p>many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
+                                          </p>
+                                          <a class="read_more" href="we_do">Read More</a>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="carousel-item">
+                           <div class="container-fluid">
+                              <div class="carousel-caption we1_do">
+                                 <div class="row">
+                                    <div class="col-md-4">
+                                       <div id="bo_ho" class="we_box text_align_left">
+                                          <i><img src="{{ url_for('static', filename='images/we1.png') }}" alt="#"/></i>
+                                          <h3>website <br>development1</h3>
+                                          <p>many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
+                                          </p>
+                                          <a class="read_more" href="we_do">Read More</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <div id="bo_ho" class="we_box text_align_left">
+                                          <i><img src="{{ url_for('static', filename='images/we1.png') }}" alt="#"/></i>
+                                          <h3>website <br>development</h3>
+                                          <p>many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
+                                          </p>
+                                          <a class="read_more" href="we_do">Read More</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <div id="bo_ho" class="we_box text_align_left">
+                                          <i><img src="{{ url_for('static', filename='images/we1.png') }}" alt="#"/></i>
+                                          <h3>website <br>development3</h3>
+                                          <p>many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
+                                          </p>
+                                          <a class="read_more" href="we_do">Read More</a>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <a class="carousel-control-prev" href="#we1" role="button" data-slide="prev">
+                     <i class="fa fa-angle-left" aria-hidden="true"></i>
+                     <span class="sr-only">Anterior</span>
+                     </a>
+                     <a class="carousel-control-next" href="#we1" role="button" data-slide="next">
+                     <i class="fa fa-angle-right" aria-hidden="true"></i>
+                     <span class="sr-only">Próximo</span>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end we_do -->
+      <!-- footer -->
+      <footer>
+         <div class="footer">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-3">
+                     <a class="logo_footer" href="index.html"><img src="{{ url_for('static', filename='images/logo_footer.png') }}" alt="#" /></a>
+                  </div>
+                  <div class="col-md-9">
+                     <form class="newslatter_form">
+                        <input class="ente" placeholder="Digite seu e-mail aqui!" type="text" name="Enter your email">
+                        <button class="subs_btn">Inscrever-se</button>
+                     </form>
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                     <div class="Informa helpful">
+                        <h3>Links Úteis:</h3>
+                        <ul>
+                           <li><a href="index.html">Home</a></li>
+                           <li><a href="about.html">Sobre</a></li>
+                           <li><a href="we_do.html">O que fazemos</a></li>
+                           <li><a href="portfolio.html">Portfólio</a></li>
+                           <li><a href="mural.html">Mural</a></li>
+                           <li><a href="contact.html">Contate-nos</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                     <div class="Informa">
+                        <h3>Nossa Missão</h3>
+                        <ul>
+                           <li>Conectar pessoas, conhecimento e tecnologia para transformar desafios em                      
+                           </li>
+                           <li>oportunidades, desenvolvendo competências, impulsionando negócios e criando                            
+                           </li>
+                           <li>soluções inovadoras que gerem resultados reais.                         
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                     <div class="Informa">
+                        <h3>NOSSA VISÃO</h3>
+                        <ul>
+                           <li>Ser referência em inovação aplicada, desenvolvimento humano e transformação                             
+                           </li>
+                           <li>digital, tornando o conhecimento e a tecnologia acessíveis e capazes de gerar                           
+                           </li>
+                           <li>impacto positivo para pessoas e organizações.                          
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                     <div class="Informa conta">
+                        <h3>Contate-nos</h3>
+                        <ul>
+                           <!--
+						   <li> <a href="Javascript:void(0)"> <i class="fa fa-map-marker" aria-hidden="true"></i> Location
+                              </a>
+                           -->
+                           <li> <a href="Javascript:void(0)"><i class="fa fa-phone" aria-hidden="true"></i>+55 11 98810-9797
+                              </a>
+                           </li>
+                           <li> <a href="Javascript:void(0)"> <i class="fa fa-envelope" aria-hidden="true"></i> massaki.actsp@gmail.com
+                              </a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="copyright text_align_left">
+               <div class="container">
+                  <div class="row d_flex">
+                     <div class="col-md-6">
+                        <p>© 2026 All Rights Reserved.  <a href="https://html.design/">ACT-SP</a></p>
+                     </div>
+                     <div class="col-md-6">
+                        <ul class="social_icon text_align_center">
+                           <li> <a href="Javascript:void(0)"><i class="fa fa-facebook-f"></i></a></li>
+                           <li> <a href="Javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
+                           <li> <a href="Javascript:void(0)"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
+                           <li> <a href="Javascript:void(0)"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                           <li> <a href="Javascript:void(0)"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/jquery-3.0.0.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+   </body>
+</html>
+

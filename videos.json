@@ -1,0 +1,319 @@
+{
+  "videos": [
+    {
+      "filename": "SindCON_ERP.mp4",
+      "title": "SindCON ERP",
+      "description": "Demonstração do SindCON ERP, solução digital para apoiar gestão, processos e organização operacional.",
+      "category": "Sistema ERP",
+      "duration": "Demonstração",
+      "year": "2026",
+      "thumbnail": "images/SindCON.png",
+      "backdrop": "images/SindCON_ERP_App.png",
+      "info_title": "Recursos do SindCON ERP",
+      "info_items": [
+        {
+          "label": "Produto",
+          "value": "SindCON ERP"
+        },
+        {
+          "label": "Formato",
+          "value": "MP4 local"
+        },
+        {
+          "label": "Modulo",
+          "value": "Gestão integrada"
+        },
+        {
+          "label": "Qualidade",
+          "value": "Full HD"
+        }
+      ],
+      "info_columns": [
+        {
+          "name": "Operação",
+          "highlight": "Rotinas"
+        },
+        {
+          "name": "Gestão",
+          "highlight": "Indicadores"
+        },
+        {
+          "name": "Estratégia",
+          "highlight": "Decisão"
+        }
+      ],
+      "info_rows": [
+        {
+          "label": "Disponibilidade",
+          "value": "Arquivo local"
+        },
+        {
+          "label": "Aplicação",
+          "value": "ERP"
+        },
+        {
+          "label": "Reprodução",
+          "value": "HTML5"
+        },
+        {
+          "label": "Qualidade máxima",
+          "value": "Full HD"
+        }
+      ]
+    },
+    {
+      "filename": "apresentacao-act-sp.mp4",
+      "title": "Apresentação ACT-SP",
+      "description": "Video institucional para apresentar soluções, capacitações e tecnologias da ACT-SP.",
+      "category": "Institucional",
+      "duration": "03 min",
+      "year": "2026",
+      "thumbnail": "images/banner.jpg",
+      "backdrop": "images/banner.jpg",
+      "info_title": "Detalhes do video",
+      "info_items": [
+        {
+          "label": "Tema",
+          "value": "Soluções para pessoas"
+        },
+        {
+          "label": "Publico",
+          "value": "Empresas e profissionais"
+        },
+        {
+          "label": "Formato",
+          "value": "MP4 local"
+        },
+        {
+          "label": "Qualidade",
+          "value": "Full HD"
+        }
+      ],
+      "info_columns": [
+        {
+          "name": "Essencial",
+          "highlight": "Equipe"
+        },
+        {
+          "name": "Destaque",
+          "highlight": "Projeto"
+        },
+        {
+          "name": "Premium",
+          "highlight": "Estratégia"
+        }
+      ],
+      "info_rows": [
+        {
+          "label": "Disponibilidade",
+          "value": "Arquivo local"
+        },
+        {
+          "label": "Formato",
+          "value": "MP4"
+        },
+        {
+          "label": "Qualidade máxima",
+          "value": "Full HD"
+        }
+      ]
+    }
+  ],
+  "example_videos": [
+    {
+      "filename": "consultoria-tecnica-demo.mp4",
+      "title": "Consultoria Técnica",
+      "description": "Exemplo de video para apresentar projetos de assessoria, diagnóstico e implantação de soluções.",
+      "category": "Assessoria",
+      "duration": "04 min",
+      "year": "2026",
+      "thumbnail": "images/prot1.png",
+      "backdrop": "images/prot1.png",
+      "info_title": "Pacotes de aplicação",
+      "info_columns": [
+        {
+          "name": "Silver",
+          "highlight": "Diagnóstico"
+        },
+        {
+          "name": "Gold",
+          "highlight": "Implantação"
+        },
+        {
+          "name": "Platinum",
+          "highlight": "Acompanhamento"
+        }
+      ],
+      "info_rows": [
+        {
+          "label": "Mapeamento técnico",
+          "value": "Incluído"
+        },
+        {
+          "label": "Plano de ação",
+          "value": "Personalizado"
+        },
+        {
+          "label": "Qualidade máxima",
+          "value": "Full HD"
+        }
+      ]
+    },
+    {
+      "filename": "capacitacoes-workshops-demo.mp4",
+      "title": "Capacitações e Workshops",
+      "description": "Exemplo de video para divulgar treinamentos, mentorias e formações técnicas para equipes.",
+      "category": "Capacitação",
+      "duration": "06 min",
+      "year": "2026",
+      "thumbnail": "images/Gemini_Generated_Image_2k5alq2k5alq2k5a.png",
+      "backdrop": "images/Gemini_Generated_Image_2k5alq2k5alq2k5a.png",
+      "info_title": "Formatos disponíveis",
+      "info_columns": [
+        {
+          "name": "Online",
+          "highlight": "Ao vivo"
+        },
+        {
+          "name": "Presencial",
+          "highlight": "Turmas"
+        },
+        {
+          "name": "Híbrido",
+          "highlight": "Flexível"
+        }
+      ],
+      "info_rows": [
+        {
+          "label": "Material de apoio",
+          "value": "Incluído"
+        },
+        {
+          "label": "Avaliação prática",
+          "value": "Opcional"
+        },
+        {
+          "label": "Certificado",
+          "value": "Disponível"
+        }
+      ]
+    },
+    {
+      "filename": "solucoes-digitais-demo.mp4",
+      "title": "Soluções Digitais",
+      "description": "Exemplo de video para mostrar automações, sistemas web, integrações e aplicações sob medida.",
+      "category": "Tecnologia",
+      "duration": "05 min",
+      "year": "2026",
+      "thumbnail": "images/App_Geomap_616x465.png",
+      "backdrop": "images/App_Geomap_616x465.png",
+      "info_title": "Recursos do projeto",
+      "info_columns": [
+        {
+          "name": "MVP",
+          "highlight": "Rápido"
+        },
+        {
+          "name": "Produto",
+          "highlight": "Completo"
+        },
+        {
+          "name": "Escala",
+          "highlight": "Evolução"
+        }
+      ],
+      "info_rows": [
+        {
+          "label": "API e integração",
+          "value": "Sim"
+        },
+        {
+          "label": "Painel web",
+          "value": "Sob demanda"
+        },
+        {
+          "label": "Banco de dados",
+          "value": "PostgreSQL"
+        }
+      ]
+    },
+    {
+      "filename": "automacao-processos-demo.mp4",
+      "title": "Automação de Processos",
+      "description": "Exemplo de video para apresentar fluxos automatizados e redução de trabalho manual.",
+      "category": "Automação",
+      "duration": "03 min",
+      "year": "2026",
+      "thumbnail": "images/App_Check-List_616x465.png",
+      "backdrop": "images/App_Check-List_616x465.png",
+      "info_title": "Indicadores esperados",
+      "info_columns": [
+        {
+          "name": "Base",
+          "highlight": "Fluxos"
+        },
+        {
+          "name": "Plus",
+          "highlight": "Dashboards"
+        },
+        {
+          "name": "Pro",
+          "highlight": "Integrações"
+        }
+      ],
+      "info_rows": [
+        {
+          "label": "Padronização",
+          "value": "Alta"
+        },
+        {
+          "label": "Monitoramento",
+          "value": "Contínuo"
+        },
+        {
+          "label": "Relatórios",
+          "value": "Configuráveis"
+        }
+      ]
+    },
+    {
+      "filename": "educacao-corporativa-demo.mp4",
+      "title": "Educação Corporativa",
+      "description": "Exemplo de video para organizar trilhas de aprendizagem, onboarding e desenvolvimento profissional.",
+      "category": "Educação",
+      "duration": "07 min",
+      "year": "2026",
+      "thumbnail": "images/Sobre.png",
+      "backdrop": "images/Sobre.png",
+      "info_title": "Trilhas sugeridas",
+      "info_columns": [
+        {
+          "name": "Start",
+          "highlight": "Onboarding"
+        },
+        {
+          "name": "Grow",
+          "highlight": "Técnico"
+        },
+        {
+          "name": "Lead",
+          "highlight": "Liderança"
+        }
+      ],
+      "info_rows": [
+        {
+          "label": "Aulas gravadas",
+          "value": "Sim"
+        },
+        {
+          "label": "Mentoria",
+          "value": "Opcional"
+        },
+        {
+          "label": "Acompanhamento",
+          "value": "Mensal"
+        }
+      ]
+    }
+  ]
+}

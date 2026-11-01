@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Admin Kanban | ACT-SP</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}?v=agenda-1">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+   </head>
+   <body class="main-layout inner_page admin-page">
+      <main>
+         <section class="admin-hero">
+            <p class="admin-eyebrow">Admin</p>
+            <h1>Kanban de mensagens</h1>
+            <p>Atualize o atendimento dos contatos recebidos com cartões por status.</p>
+         </section>
+
+         <section class="admin-section kanban-admin">
+            {% include 'admin_tabs.html' %}
+            {% with flashes = get_flashed_messages(with_categories=true) %}
+               {% if flashes %}
+                  <div class="admin-flashes">
+                     {% for category, message in flashes %}
+                        <div class="admin-flash admin-flash-{{ category }}">{{ message }}</div>
+                     {% endfor %}
+                  </div>
+               {% endif %}
+            {% endwith %}
+
+            <div class="admin-toolbar">
+               <div>
+                  <p class="admin-eyebrow">Resumo</p>
+                  <h2>{{ messages|length }} mensagem(ns) no filtro atual</h2>
+                  <p>Organize contatos por etapa de atendimento e prioridade.</p>
+               </div>
+               <div class="admin-actions">
+                  <form class="admin-export" action="{{ url_for('admin_export_messages') }}" method="get">
+                     <label for="export-format">Exportar todas</label>
+                     <select id="export-format" name="format">
+                        <option value="xlsx">XLSX</option>
+                        <option value="csv">CSV</option>
+                     </select>
+                     <button class="admin-button secondary" type="submit" title="Baixar todas as mensagens">
+                        <i class="fa fa-download" aria-hidden="true"></i> Download
+                     </button>
+                  </form>
+                  <a class="admin-button secondary" href="{{ url_for('index') }}">Home</a>
+                  {% if messages %}
+                     <form action="{{ url_for('admin_reset_messages') }}" method="post" data-confirm-submit="Tem certeza que deseja apagar todas as mensagens recebidas? Esta ação não pode ser desfeita.">
+                        <button class="admin-button danger" type="submit">Apagar mensagens</button>
+                     </form>
+                  {% endif %}
+                  <form action="{{ url_for('admin_logout') }}" method="post">
+                     <button class="admin-button primary" type="submit">Sair</button>
+                  </form>
+               </div>
+            </div>
+
+            <form class="kanban-filters row g-3 align-items-end" action="{{ url_for('admin') }}" method="get">
+               <div class="col-12 col-md-5">
+                  <label class="form-label" for="filter-name">Nome</label>
+                  <input class="form-control" id="filter-name" name="name" value="{{ current_name }}" placeholder="Filtrar por nome">
+               </div>
+               <div class="col-12 col-md-4">
+                  <label class="form-label" for="filter-status">Status</label>
+                  <select class="form-select" id="filter-status" name="status">
+                     <option value="">Todos</option>
+                     {% for column in kanban_columns %}
+                        <option value="{{ column.key }}" {% if current_status == column.key %}selected{% endif %}>{{ column.label }}</option>
+                     {% endfor %}
+                  </select>
+               </div>
+               <div class="col-12 col-md-3 d-flex gap-2">
+                  <button class="btn btn-primary flex-fill" type="submit">Filtrar</button>
+                  <a class="btn btn-outline-secondary" href="{{ url_for('admin') }}">Limpar</a>
+               </div>
+            </form>
+
+            <div class="kanban-board" aria-label="Quadro Kanban de mensagens">
+               {% for column in kanban_columns %}
+                  {% set column_messages = grouped_messages[column.key] %}
+                  <section class="kanban-column" data-kanban-status="{{ column.key }}">
+                     <header class="kanban-column-header">
+                        <h2>{{ column.label }}</h2>
+                        <span>{{ column_messages|length }}</span>
+                     </header>
+
+                     <div class="kanban-dropzone" data-kanban-dropzone="{{ column.key }}">
+                        {% for item in column_messages %}
+                           <article class="kanban-card priority-{{ item.priority|lower }}" draggable="true" data-card-id="{{ item.id }}" data-current-status="{{ item.status }}">
+                              <div class="kanban-card-top">
+                                 <h3>{{ item.name }}</h3>
+                                 <span>{{ item.priority }}</span>
+                              </div>
+                              <p>{{ item.message }}</p>
+                              <dl>
+                                 <div>
+                                    <dt>E-mail</dt>
+                                    <dd>{{ item.email }}</dd>
+                                 </div>
+                                 <div>
+                                    <dt>Telefone</dt>
+                                    <dd>{{ item.phone }}</dd>
+                                 </div>
+                              </dl>
+                              <div class="kanban-card-actions">
+                                 <a class="btn btn-sm btn-outline-primary" href="{{ url_for('agenda.new', message_id=item.id) }}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Agendar</a>
+                                 <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#view-message-{{ item.id }}">Ver</button>
+                                 <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#edit-message-{{ item.id }}">Editar</button>
+                                 <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Mover</button>
+                                    <ul class="dropdown-menu">
+                                       {% for target in kanban_columns %}
+                                          <li><button class="dropdown-item" type="button" data-move-card="{{ item.id }}" data-target-status="{{ target.key }}">{{ target.label }}</button></li>
+                                       {% endfor %}
+                                    </ul>
+                                 </div>
+                                 <form action="{{ url_for('admin_delete_message', message_id=item.id) }}" method="post" data-confirm-submit="Excluir esta mensagem?">
+                                    <button class="btn btn-sm btn-outline-danger" type="submit">Excluir</button>
+                                 </form>
+                              </div>
+                           </article>
+                        {% endfor %}
+                     </div>
+                  </section>
+               {% endfor %}
+            </div>
+
+            {% if not messages %}
+               <div class="admin-empty-state">
+                  <h2>Nenhuma mensagem encontrada</h2>
+                  <p>Quando houver contatos no filtro selecionado, os cartões aparecerão no Kanban.</p>
+               </div>
+            {% endif %}
+         </section>
+
+         {% for item in messages %}
+            <div class="modal fade" id="view-message-{{ item.id }}" tabindex="-1" aria-labelledby="view-message-title-{{ item.id }}" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-scrollable">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h2 class="modal-title fs-5" id="view-message-title-{{ item.id }}">{{ item.name }}</h2>
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                     </div>
+                     <div class="modal-body">
+                        <p><strong>Status:</strong> {{ item.status }}</p>
+                        <p><strong>Prioridade:</strong> {{ item.priority }}</p>
+                        <p><strong>E-mail:</strong> <a href="mailto:{{ item.email }}">{{ item.email }}</a></p>
+                        <p><strong>Telefone:</strong> <a href="tel:{{ item.phone }}">{{ item.phone }}</a></p>
+                        <p><strong>Mensagem:</strong></p>
+                        <p>{{ item.message }}</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="modal fade" id="edit-message-{{ item.id }}" tabindex="-1" aria-labelledby="edit-message-title-{{ item.id }}" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-scrollable">
+                  <form class="modal-content" action="{{ url_for('admin_edit_message', message_id=item.id) }}" method="post">
+                     <div class="modal-header">
+                        <h2 class="modal-title fs-5" id="edit-message-title-{{ item.id }}">Editar mensagem</h2>
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                     </div>
+                     <div class="modal-body">
+                        <label class="form-label" for="edit-name-{{ item.id }}">Nome</label>
+                        <input class="form-control mb-3" id="edit-name-{{ item.id }}" name="name" value="{{ item.name }}" required>
+
+                        <label class="form-label" for="edit-email-{{ item.id }}">E-mail</label>
+                        <input class="form-control mb-3" id="edit-email-{{ item.id }}" name="email" type="email" value="{{ item.email }}" required>
+
+                        <label class="form-label" for="edit-phone-{{ item.id }}">Telefone</label>
+                        <input class="form-control mb-3" id="edit-phone-{{ item.id }}" name="phone" value="{{ item.phone }}" required>
+
+                        <label class="form-label" for="edit-status-{{ item.id }}">Status</label>
+                        <select class="form-select mb-3" id="edit-status-{{ item.id }}" name="status">
+                           {% for column in kanban_columns %}
+                              <option value="{{ column.key }}" {% if item.status == column.key %}selected{% endif %}>{{ column.label }}</option>
+                           {% endfor %}
+                        </select>
+
+                        <label class="form-label" for="edit-priority-{{ item.id }}">Prioridade</label>
+                        <select class="form-select mb-3" id="edit-priority-{{ item.id }}" name="priority">
+                           {% for priority in priorities %}
+                              <option value="{{ priority }}" {% if item.priority == priority %}selected{% endif %}>{{ priority }}</option>
+                           {% endfor %}
+                        </select>
+
+                        <label class="form-label" for="edit-message-text-{{ item.id }}">Mensagem</label>
+                        <textarea class="form-control" id="edit-message-text-{{ item.id }}" name="message" rows="5" required>{{ item.message }}</textarea>
+                     </div>
+                     <div class="modal-footer">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         {% endfor %}
+      </main>
+      <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/admin-kanban.js') }}" defer></script>
+   </body>
+</html>
+

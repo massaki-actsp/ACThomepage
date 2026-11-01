@@ -1,0 +1,35 @@
+{% extends 'agenda/base.html' %}
+{% block content %}
+<div class="agenda-toolbar"><h2>{{ 'Editar compromisso' if event_id else 'Novo compromisso' }}</h2><a href="{{ url_for('agenda.index') }}">Voltar à agenda</a></div>
+<p id="agenda-form-error" class="admin-flash admin-flash-error" role="alert" tabindex="-1" {% if not error %}hidden{% endif %}>{{ error or '' }}</p>
+<div class="agenda-form-layout">
+   <form class="agenda-event-form" method="post" action="{{ url_for('agenda.edit', event_id=event_id) if event_id else url_for('agenda.new') }}" aria-describedby="agenda-form-error">
+      <input type="hidden" name="csrf_token" value="{{ session.agenda_csrf }}">
+      {% for contact in contacts %}<input type="hidden" name="message_id" value="{{ contact.id }}">{% endfor %}
+      <label class="full" for="agenda-title">Título<input id="agenda-title" name="title" value="{{ event.title }}" maxlength="160" required></label>
+      <label class="full">Tipo<select name="event_type">{% for key, label in event_types.items() %}<option value="{{ key }}" {% if event.event_type == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+      <label for="agenda-start">Início<input id="agenda-start" type="datetime-local" name="start_at" value="{{ event.start_at }}" min="1900-01-01T00:00" max="2100-12-31T23:59" required></label>
+      <label for="agenda-end">Término<input id="agenda-end" type="datetime-local" name="end_at" value="{{ event.end_at }}" min="1900-01-01T00:00" max="2100-12-31T23:59"></label>
+      <p class="agenda-timezone full">Horários de Brasília. Sem término informado, duração de 1 hora.</p>
+      <label class="full">Local<input name="location" value="{{ event.location }}" maxlength="180"></label>
+      <label class="full">Descrição<textarea name="description" rows="5" maxlength="6000">{{ event.description }}</textarea></label>
+      <div class="agenda-event-actions full"><button class="admin-button primary" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar compromisso</button><a href="{{ url_for('agenda.index') }}">Cancelar</a></div>
+   </form>
+   <aside class="agenda-sources">
+      <h2>Mensagens do compromisso</h2>
+      {% for contact in contacts %}
+      <div class="agenda-contact"><strong>{{ contact.name }}</strong><p>{{ contact.email }}<br>{{ contact.phone }}</p><p class="agenda-description">{{ contact.message }}</p></div>
+      {% else %}<p>Nenhuma mensagem vinculada.</p>{% endfor %}
+      {% if not event_id %}
+      <form method="get" action="{{ url_for('agenda.new') }}" class="agenda-import-form">
+         <label for="agenda-messages">Importar mensagens</label>
+         <select id="agenda-messages" name="message_id" multiple size="6">
+            {% set selected = contacts|map(attribute='id')|list %}
+            {% for message in messages %}<option value="{{ message.id }}" {% if message.id in selected %}selected{% endif %}>#{{ message.id }} · {{ message.name }} · {{ message.message[:65] }}</option>{% endfor %}
+         </select>
+         <button class="admin-button secondary" type="submit"><i class="fa fa-arrow-down" aria-hidden="true"></i> Importar selecionadas</button>
+      </form>
+      {% endif %}
+   </aside>
+</div>
+{% endblock %}

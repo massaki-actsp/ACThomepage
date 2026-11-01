@@ -1,0 +1,94 @@
+{% extends 'agenda/base.html' %}
+{% from 'admin_pie_chart.html' import pie %}
+{% block page_title %}LOGs de usuários | ACT-SP{% endblock %}
+{% block page_heading %}LOGs de usuários{% endblock %}
+{% block extra_styles %}<link rel="stylesheet" href="{{ url_for('static', filename='css/admin-logs.css') }}?v=pie-labels-2">{% endblock %}
+{% block content %}
+<form class="logs-filters" method="get" action="{{ url_for('mural_logs.index') }}">
+   <label>De<input type="date" name="start" value="{{ start_value }}"></label>
+   <label>Até<input type="date" name="end" value="{{ end_value }}"></label>
+   <button class="admin-button secondary" type="submit"><i class="fa fa-filter" aria-hidden="true"></i> Filtrar</button>
+   <a href="{{ url_for('mural_logs.index') }}">Todo o período</a>
+</form>
+{% if error %}<p class="admin-flash admin-flash-error" role="alert">{{ error }}</p>{% endif %}
+<p class="logs-definition">Cliques em cards e em “Assistir agora”. Reprodução automática não entra na contagem. Percentuais relativos ao catálogo atual no período selecionado.</p>
+<div class="logs-summary">
+   <article><span>Cliques no catálogo atual</span><strong>{{ total }}</strong></article>
+   <article><span>Vídeos acessados</span><strong>{{ clicked_videos }} <small>/ {{ ranking|length }}</small></strong></article>
+   <article><span>IPs distintos</span><strong>{{ unique_ips }}</strong></article>
+</div>
+<section class="logs-ranking" aria-labelledby="ranking-heading">
+   <h2 id="ranking-heading">Vídeos mais acessados</h2>
+   <div class="logs-video-cards">
+      {% for video in ranking[:6] %}
+      <article class="logs-video-card" style="--video-color: {{ video.color }}">
+         <span class="logs-category">{{ video.category }}</span>
+         <h3>{{ video.title }}</h3>
+         <strong>{{ '%.2f'|format(video.percentage) }}<small>%</small></strong>
+         <p>{{ video.count }} clique(s)</p>
+      </article>
+      {% else %}<p>Nenhum vídeo disponível no catálogo.</p>{% endfor %}
+   </div>
+</section>
+<div class="logs-charts">
+   <section aria-labelledby="video-chart-heading">
+      <h2 id="video-chart-heading">Participação por vídeo</h2>
+      {% if total %}
+      {{ pie(video_chart, 'Participação dos vídeos: percentual e quantidade de cliques por conteúdo.') }}
+      {% else %}<div class="logs-chart-empty">Ainda não há cliques neste período.</div>{% endif %}
+      <ul class="logs-legend">
+         {% for video in ranking %}<li><span class="logs-swatch" style="background: {{ video.color }}" aria-hidden="true"></span><span>{{ video.title }}</span><strong>{{ video.count }} · {{ '%.2f'|format(video.percentage) }}%</strong></li>{% endfor %}
+      </ul>
+   </section>
+   <section aria-labelledby="source-chart-heading">
+      <h2 id="source-chart-heading">Onde os usuários clicam</h2>
+      {% if total %}
+      {{ pie(source_chart, 'Origem dos cliques: percentual e quantidade no carrossel, catálogo e botão Assistir agora.') }}
+      {% else %}<div class="logs-chart-empty">Ainda não há cliques neste período.</div>{% endif %}
+      <ul class="logs-legend">
+         {% for source in sources %}<li><span class="logs-swatch" style="background: {{ source.color }}" aria-hidden="true"></span><span>{{ source.title }}</span><strong>{{ source.count }} · {{ '%.2f'|format(source.percentage) }}%</strong></li>{% endfor %}
+      </ul>
+   </section>
+</div>
+<section class="logs-history" aria-labelledby="logs-heading">
+   <div class="agenda-toolbar">
+      <h2 id="logs-heading">Histórico de cliques <small>({{ total_records }})</small></h2>
+      <form class="admin-export" method="get" action="{{ url_for('mural_logs.export_history') }}">
+         <input type="hidden" name="start" value="{{ start_value }}">
+         <input type="hidden" name="end" value="{{ end_value }}">
+         <label for="logs-export-format">Exportar histórico</label>
+         <select id="logs-export-format" name="format">
+            <option value="xlsx">XLSX</option>
+            <option value="csv">CSV</option>
+         </select>
+         <button class="admin-button secondary" type="submit" title="Baixar todo o histórico do período selecionado"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
+      </form>
+   </div>
+   <p>O download inclui todas as páginas do período filtrado. Use “Todo o período” para exportar o histórico completo.</p>
+   <p>Horários de Brasília. IPs distintos não representam necessariamente pessoas distintas.</p>
+   {% if retired %}<p>{{ retired }} clique(s) em vídeos fora do catálogo atual estão preservados no histórico e não entram nos gráficos.</p>{% endif %}
+   <div class="logs-table-wrap" tabindex="0" role="region" aria-label="Histórico de cliques, com rolagem horizontal">
+      <table>
+         <thead><tr><th scope="col">Data e hora</th><th scope="col">Vídeo</th><th scope="col">Origem</th><th scope="col">IP</th></tr></thead>
+         <tbody>{% for item in history %}<tr><td>{{ item.time }}</td><td>{{ item.title }}</td><td>{{ item.source }}</td><td>{{ item.ip or 'Indisponível' }}</td></tr>{% else %}<tr><td colspan="4">Nenhum clique registrado neste período.</td></tr>{% endfor %}</tbody>
+      </table>
+   </div>
+   <nav class="logs-pagination" aria-label="Paginação do histórico">
+      {% if page > 1 %}<a class="agenda-icon-button" href="{{ url_for('mural_logs.index', page=page-1, start=start_value, end=end_value) }}" title="Página anterior" aria-label="Página anterior"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>{% endif %}
+      <span>Página {{ page }} de {{ pages }}</span>
+      {% if page < pages %}<a class="agenda-icon-button" href="{{ url_for('mural_logs.index', page=page+1, start=start_value, end=end_value) }}" title="Próxima página" aria-label="Próxima página"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>{% endif %}
+   </nav>
+   <details class="admin-reset-logs">
+      <summary><i class="fa fa-trash-o" aria-hidden="true"></i> Resetar histórico de cliques</summary>
+      <p>Apaga permanentemente todos os logs, de todos os períodos, e zera os gráficos. Mensagens e compromissos são preservados. Faça o download do histórico antes de apagar, se precisar guardá-lo.</p>
+      <form class="admin-login-form" method="post" action="{{ url_for('mural_logs.reset_history') }}">
+         <input type="hidden" name="csrf_token" value="{{ admin_csrf_token() }}">
+         <label for="reset-password">Senha atual do administrador</label>
+         <input id="reset-password" name="current_password" type="password" autocomplete="current-password" required>
+         <label for="reset-confirmation">Digite APAGAR LOGS para confirmar</label>
+         <input id="reset-confirmation" name="confirmation" autocomplete="off" pattern="APAGAR LOGS" required>
+         <button class="admin-button danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i> Apagar todos os logs</button>
+      </form>
+   </details>
+</section>
+{% endblock %}

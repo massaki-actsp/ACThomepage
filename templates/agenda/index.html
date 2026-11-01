@@ -1,0 +1,53 @@
+{% extends 'agenda/base.html' %}
+{% block content %}
+<div class="agenda-toolbar">
+   <div class="agenda-month-nav">
+      <a class="agenda-icon-button" href="{{ url_for('agenda.index', mes=previous.strftime('%Y-%m')) }}" title="Mês anterior" aria-label="Mês anterior"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+      <h2>{{ month_name }} {{ month.year }}</h2>
+      <a class="agenda-icon-button" href="{{ url_for('agenda.index', mes=next_month.strftime('%Y-%m')) }}" title="Próximo mês" aria-label="Próximo mês"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+      <a href="{{ url_for('agenda.index') }}">Hoje</a>
+   </div>
+   <a class="admin-button primary" href="{{ url_for('agenda.new') }}"><i class="fa fa-plus" aria-hidden="true"></i> Novo compromisso</a>
+</div>
+<div class="agenda-layout">
+   <section class="agenda-calendar" aria-label="Calendário mensal">
+      <div class="agenda-weekdays">{% for label in ['SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB', 'DOM'] %}<strong>{{ label }}</strong>{% endfor %}</div>
+      <div class="agenda-month-grid">
+         {% for week in weeks %}{% for day in week %}
+         <div class="agenda-day {% if day.month != month.month %}is-outside{% endif %} {% if day == today %}is-today{% endif %} {% if day in event_days %}has-events{% endif %}" {% if day == today %}aria-current="date"{% endif %}>
+            <span>{{ day.day }}</span>{% if day in event_days %}<span class="agenda-dot" aria-label="Possui compromissos"></span>{% endif %}
+         </div>
+         {% endfor %}{% endfor %}
+      </div>
+      <p class="agenda-timezone">Horários de Brasília · America/Sao_Paulo</p>
+   </section>
+   <section class="agenda-list" aria-label="Compromissos do mês">
+      <h2>{{ events|length }} compromisso(s)</h2>
+      {% for event in events %}
+      <article id="compromisso-{{ event.id }}" class="agenda-event type-{{ event.event_type }}" tabindex="-1">
+         <header><span class="agenda-event-type">{{ event_types[event.event_type] }}</span><h3>{{ event.title }}</h3></header>
+         <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{ event.start_at[8:10] }}/{{ event.start_at[5:7] }}/{{ event.start_at[:4] }} {{ event.start_at[11:] }} até {{ event.end_at[8:10] }}/{{ event.end_at[5:7] }} {{ event.end_at[11:] }}</p>
+         {% if event.location %}<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ event.location }}</p>{% endif %}
+         {% if event.description %}<p class="agenda-description">{{ event.description }}</p>{% endif %}
+         {% if event.contacts %}
+         <details><summary>{{ event.contacts|length }} mensagem(ns) vinculada(s)</summary>
+            {% for contact in event.contacts %}
+            <div class="agenda-contact"><strong>{{ contact.name }}</strong><p>{{ contact.email }} · {{ contact.phone }}</p><p class="agenda-description">{{ contact.message }}</p></div>
+            {% endfor %}
+         </details>
+         {% endif %}
+         <footer class="agenda-event-actions">
+            <a class="admin-button secondary" href="{{ url_for('agenda.google', event_id=event.id) }}" target="_blank" rel="noopener noreferrer"><i class="fa fa-google" aria-hidden="true"></i> Google Agenda</a>
+            <a class="agenda-text-action" href="{{ url_for('agenda.edit', event_id=event.id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+            <form action="{{ url_for('agenda.delete', event_id=event.id) }}" method="post" data-agenda-delete>
+               <input type="hidden" name="csrf_token" value="{{ session.agenda_csrf }}">
+               <button class="agenda-text-action danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i> Excluir</button>
+            </form>
+         </footer>
+      </article>
+      {% else %}
+      <p class="agenda-empty">Nenhum compromisso neste mês.</p>
+      {% endfor %}
+   </section>
+</div>
+{% endblock %}

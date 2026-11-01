@@ -1,0 +1,4 @@
+id;title;description;category;year;duration;rating;poster;banner;video;provider;embed_url;caption;featured
+1;SindCON ERP;Demonstracao do sistema SindCON ERP.;Sistema ERP;2026;Demonstracao;Livre;SindCON_ERP_App.png;banner1.jpg;SindCON_ERP.mp4;local;;;sim
+2;Exemplo YouTube;Video incorporado do YouTube.;Institucional;2026;Video;Livre;Template_Video.png;banner.jpg;;youtube;https://youtu.be/Mi7CkzLP38c;;
+3;Exemplo Vimeo;Video incorporado do Vimeo.;Institucional;2026;Video;Livre;Template_Video.png;banner.jpg;;vimeo;https://vimeo.com/76979871;;

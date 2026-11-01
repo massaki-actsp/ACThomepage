@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>{% block page_title %}Agenda Admin | ACT-SP{% endblock %}</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}?v=security-1">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/agenda.css') }}?v=1">
+   {% block extra_styles %}{% endblock %}
+</head>
+<body class="admin-page agenda-page">
+<main class="agenda-main">
+   <header class="agenda-heading">
+      <div><p class="admin-eyebrow">Admin ACT-SP</p><h1>{% block page_heading %}Agenda{% endblock %}</h1></div>
+      <div class="admin-actions">
+         <a class="admin-button secondary" href="{{ url_for('index') }}">Home</a>
+         <form action="{{ url_for('admin_logout') }}" method="post"><button class="admin-button primary" type="submit">Sair</button></form>
+      </div>
+   </header>
+   {% include 'admin_tabs.html' %}
+   {% for category, message in get_flashed_messages(with_categories=true) %}
+      <p class="admin-flash admin-flash-{{ category }}" role="status">{{ message }}</p>
+   {% endfor %}
+   {% block content %}{% endblock %}
+</main>
+<script src="{{ url_for('static', filename='js/agenda.js') }}?v=save-feedback-2" defer></script>
+</body>
+</html>

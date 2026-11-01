@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Admin | ACT-SP</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}?v=admin-home-link-1">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+   </head>
+   <body class="main-layout inner_page admin-page">
+      <main class="admin-auth">
+         <section class="admin-auth-card">
+            <p class="admin-eyebrow">Admin</p>
+            <h1>Acesso administrativo</h1>
+            <p>Área restrita para consulta das mensagens enviadas pelo formulário de contato.</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+               {% if messages %}
+                  <div class="admin-flashes">
+                     {% for category, message in messages %}
+                        <div class="admin-flash admin-flash-{{ category }}">{{ message }}</div>
+                     {% endfor %}
+                  </div>
+               {% endif %}
+            {% endwith %}
+
+            <form class="admin-login-form" action="{{ url_for('admin_login', next=request.args.get('next')) }}" method="post" novalidate>
+               <label for="username">Usuário</label>
+               <input id="username" name="username" value="{{ username }}" autocomplete="username" required>
+
+               <label for="password">Senha</label>
+               <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+               <button type="submit">Entrar</button>
+            </form>
+            <a class="admin-home-link" href="{{ url_for('index') }}">
+               <i class="fa fa-arrow-left" aria-hidden="true"></i>
+               Voltar para Home
+            </a>
+         </section>
+      </main>
+   </body>
+</html>
+

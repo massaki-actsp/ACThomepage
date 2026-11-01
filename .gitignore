@@ -1,0 +1,31 @@
+# Secrets and local environments
+.env
+.env.*
+!.env.example
+!.env.pythonanywhere.example
+/.venv/
+/venv/
+/ACThomepage/
+
+# Runtime data, exports, logs and generated previews
+/instance/
+/tmp/
+/output/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local working material, not application assets
+/PROMPT*.txt
+/LINKS_VIDEOS.txt
+/Guia de Configuração CNAME_ Registro.br e PythonAnywhere.pdf
+.DS_Store
+Thumbs.db

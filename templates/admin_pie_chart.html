@@ -1,0 +1,22 @@
+{% macro pie(chart, label) %}
+<svg class="logs-pie" viewBox="0 0 400 {{ chart.height }}" role="img" aria-label="{{ label }}" xmlns="http://www.w3.org/2000/svg">
+   <title>{{ label }}</title>
+   {% for slice in chart.slices %}
+   <g>
+      <title>{{ slice.title }}: {{ '%.1f'|format(slice.percentage) }}% ({{ slice.count }} {{ 'clique' if slice.count == 1 else 'cliques' }})</title>
+      {% if slice.full_circle %}
+      <circle cx="200" cy="{{ chart.center_y }}" r="{{ chart.radius }}" fill="{{ slice.color }}"/>
+      {% else %}
+      <path d="{{ slice.path }}" fill="{{ slice.color }}" stroke="#fff" stroke-width="1"/>
+      {% endif %}
+   </g>
+   {% endfor %}
+   {% for slice in chart.slices %}
+   {% if slice.outside %}<polyline points="{{ slice.leader }}" class="logs-pie-leader" stroke="{{ slice.color }}"/>{% endif %}
+   <text x="{{ slice.label_x }}" y="{{ slice.label_y }}" text-anchor="{{ slice.anchor }}" class="logs-pie-label {{ 'is-outside' if slice.outside else '' }}">
+      <tspan x="{{ slice.label_x }}" dy="-2">{{ '%.1f'|format(slice.percentage) }}%</tspan>
+      <tspan x="{{ slice.label_x }}" dy="16" class="logs-pie-count">({{ slice.count }} {{ 'clique' if slice.count == 1 else 'cliques' }})</tspan>
+   </text>
+   {% endfor %}
+</svg>
+{% endmacro %}

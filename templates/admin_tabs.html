@@ -1,0 +1,6 @@
+<nav class="admin-tabs" aria-label="Módulos administrativos">
+   <a href="{{ url_for('admin') }}" {% if request.endpoint == 'admin' %}aria-current="page"{% endif %}><i class="fa fa-envelope-o" aria-hidden="true"></i> Mensagens</a>
+   <a href="{{ url_for('agenda.index') }}" {% if request.blueprint == 'agenda' %}aria-current="page"{% endif %}><i class="fa fa-calendar" aria-hidden="true"></i> Agenda</a>
+   <a href="{{ url_for('mural_logs.index') }}" {% if request.blueprint == 'mural_logs' %}aria-current="page"{% endif %}><i class="fa fa-pie-chart" aria-hidden="true"></i> LOGs de usuários</a>
+   <a href="{{ url_for('admin_security') }}" {% if request.endpoint in ['admin_security', 'admin_change_password'] %}aria-current="page"{% endif %}><i class="fa fa-lock" aria-hidden="true"></i> Segurança</a>
+</nav>

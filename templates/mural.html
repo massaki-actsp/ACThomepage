@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Mural | ACT-SP</title>
+      <meta name="description" content="Mural de conteúdos da ACT-SP">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=agua-viva-mural-1">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/mural-rascunho.css') }}?v=mural-menu-footer-2">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+   </head>
+   <body class="main-layout inner_page video-module-body">
+      <div class="loader_bg">
+         <div class="loader"><img src="{{ url_for('static', filename='images/loading.gif') }}" alt="" /></div>
+      </div>
+      <header>
+         <div class="header">
+            <div class="container-fluid">
+               <div class="row d_flex">
+                  <div class=" col-md-2 col-sm-3 col logo_section">
+                     <div class="full">
+                        <div class="center-desk">
+                           <div class="logo">
+                              <a href="index.html"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="ACT-SP" /></a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-8 col-sm-9">
+                     <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                           <ul class="navbar-nav mr-auto">
+                              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                              <li class="nav-item"><a class="nav-link" href="about.html">Sobre</a></li>
+                              <li class="nav-item"><a class="nav-link" href="we_do.html">O que fazemos?</a></li>
+                              <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfólio</a></li>
+                              <li class="nav-item active"><a class="nav-link" href="mural.html">Mural</a></li>
+                              <li class="nav-item"><a class="nav-link" href="contact.html">Contato</a></li>
+                              <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+                           </ul>
+                        </div>
+                     </nav>
+                  </div>
+                  <div class="col-md-2 d_none">
+                     <ul class="email text_align_right">
+                        <li><a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </header>
+
+      <main class="video-page app" data-video-page data-image-base="{{ url_for('static', filename='images/') }}">
+         <header class="video-shell-nav" data-video-header>
+            <button class="video-menu-toggle" type="button" aria-expanded="false" aria-controls="video-nav">
+               <i class="fa fa-bars" aria-hidden="true"></i>
+               <span class="sr-only">Abrir menu interno do mural</span>
+            </button>
+            <nav id="video-nav" class="video-nav nav--tilt1" data-nav data-video-tabbar aria-label="Navegação interna do mural">
+               <span id="current" class="sr-only">Seção atual</span>
+               <ul class="video-tab-list">
+                  <li id="home" class="active" data-nav-item="1" data-video-tab aria-describedby="current">
+                     <a href="#inicio" aria-label="Ir para o início do módulo Mural">
+                        <svg id="home-icon" class="active-fill" viewBox="0 0 24 24" aria-hidden="true">
+                           <path d="M5 4.7c0-1.1 1.2-1.8 2.2-1.2l12.1 7.3c.9.5.9 1.9 0 2.4L7.2 20.5c-1 .6-2.2-.1-2.2-1.2V4.7z"></path>
+                        </svg>
+                        <span class="sr-only">Início</span>
+                     </a>
+                  </li>
+                  <li id="explore" data-nav-item="2" data-video-tab>
+                     <a href="#destaques" aria-label="Ir para destaques de vídeos">
+                        <svg id="explore-icon" viewBox="0 0 24 24" aria-hidden="true">
+                           <path d="M4.2 5A2.2 2.2 0 0 1 6.4 2.8h11.2A2.2 2.2 0 0 1 19.8 5v14a2.2 2.2 0 0 1-2.2 2.2H6.4A2.2 2.2 0 0 1 4.2 19V5Zm2 0v2h2V4.8H6.4a.2.2 0 0 0-.2.2Zm9.6-.2V7h2V5a.2.2 0 0 0-.2-.2h-1.8ZM6.2 10v4h11.6v-4H6.2Zm0 7v2a.2.2 0 0 0 .2.2h1.8V17h-2Zm9.6 0v2.2h1.8a.2.2 0 0 0 .2-.2v-2h-2Z"></path>
+                        </svg>
+                        <span class="sr-only">Destaques</span>
+                     </a>
+                  </li>
+                  <li id="messages" data-nav-item="3" data-video-tab>
+                     <a href="#categorias" aria-label="Ir para categorias de vídeos">
+                        <svg id="messages-icon" viewBox="0 0 24 24" aria-hidden="true">
+                           <path d="M5 7.2a1 1 0 0 1 1-1h4.1a2 2 0 0 1 3.8 0H18a1 1 0 1 1 0 2h-4.1a2 2 0 0 1-3.8 0H6a1 1 0 0 1-1-1Zm0 4.8a1 1 0 0 1 1-1h9.1a2 2 0 0 1 3.8 0H18a1 1 0 1 1 0 2h.9a2 2 0 0 1-3.8 0H6a1 1 0 0 1-1-1Zm0 4.8a1 1 0 0 1 1-1h1.1a2 2 0 0 1 3.8 0H18a1 1 0 1 1 0 2h-7.1a2 2 0 0 1-3.8 0H6a1 1 0 0 1-1-1Z"></path>
+                        </svg>
+                        <span class="sr-only">Categorias</span>
+                     </a>
+                  </li>
+                  <li id="profile" data-nav-item="4" data-video-tab>
+                     <a href="#catalogo" aria-label="Ir para catálogo completo de vídeos">
+                        <svg id="profile-icon" viewBox="0 0 24 24" aria-hidden="true">
+                           <path d="M4 6a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm0 6a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm0 6a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm13.2-8.4c-.8-.5-1.7.1-1.7 1v2.8c0 .9.9 1.5 1.7 1l2.3-1.4c.7-.4.7-1.5 0-1.9l-2.3-1.5Z"></path>
+                        </svg>
+                        <span class="sr-only">Catálogo</span>
+                     </a>
+                  </li>
+               </ul>
+            </nav>
+         </header>
+
+         {% set current_video = videos[0] %}
+         <section id="inicio" class="video-hero" data-video-hero data-card>
+            <img class="video-hero-bg" data-hero-image src="{{ url_for('static', filename='images/' ~ current_video.banner) }}" alt="">
+            <video class="video-hero-bg" data-hero-video muted loop playsinline poster="{{ url_for('static', filename='images/' ~ current_video.banner) }}"></video>
+            <div class="video-hero-shade"></div>
+            <div class="video-hero-content">
+               <div class="video-accent-line"></div>
+               <div>
+                  <p class="video-status" data-video-status>Imperdível!</p>
+                  <h1 data-video-title>{{ current_video.title }}</h1>
+                  <p data-video-description>{{ current_video.description }}</p>
+                  <ul class="video-meta" aria-label="Informações do vídeo">
+                     <li data-video-year>{{ current_video.year }}</li>
+                     <li data-video-duration>{{ current_video.duration }}</li>
+                     <li data-video-category>{{ current_video.category }}</li>
+                     <li data-video-rating>{{ current_video.rating }}</li>
+                  </ul>
+                  <div class="video-actions">
+                     <button class="video-button primary" type="button" data-open-player>
+                        <i class="fa fa-play" aria-hidden="true"></i>
+                        Assistir agora
+                     </button>
+                     <button class="video-button secondary" type="button" data-open-details>Ver detalhes</button>
+                     <button class="video-icon-button" type="button" data-toggle-hero-audio aria-label="Ativar áudio do vídeo em destaque">
+                        <i class="fa fa-volume-off" aria-hidden="true"></i>
+                     </button>
+                     <button class="video-icon-button" type="button" data-toggle-hero-play aria-label="Pausar vídeo em destaque">
+                        <i class="fa fa-pause" aria-hidden="true"></i>
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </section>
+
+         <section id="destaques" class="video-carousel-section" data-card>
+            <div class="video-section-heading">
+               <h2>Principais Lançamentos</h2>
+               <a href="#catalogo">Ver todos</a>
+            </div>
+            <div class="video-carousel-wrap">
+               <button class="carousel-arrow left" type="button" data-carousel-prev aria-label="Itens anteriores">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+               </button>
+               <div class="video-carousel" data-video-carousel tabindex="0" aria-label="Lista horizontal do mural"></div>
+               <button class="carousel-arrow right" type="button" data-carousel-next aria-label="Próximos itens">
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+               </button>
+            </div>
+         </section>
+
+         <section id="catalogo" class="video-catalog-section" data-card>
+            <div class="video-section-heading">
+               <h2>Nosso Catálogo</h2>
+               <p id="categorias">Pesquise, filtre por categoria e ordene os conteúdos disponíveis.</p>
+            </div>
+            <form class="video-filters" data-video-filters>
+               <label>
+                  <span>Pesquisa</span>
+                  <input type="search" name="search" placeholder="Buscar por título">
+               </label>
+               <label>
+                  <span>Categoria</span>
+                  <select name="category">
+                     <option value="">Todas</option>
+                     {% for category in categories %}
+                        <option value="{{ category }}">{{ category }}</option>
+                     {% endfor %}
+                  </select>
+               </label>
+               <label>
+                  <span>Ordenar</span>
+                  <select name="sort">
+                     <option value="title">Título</option>
+                     <option value="year">Ano</option>
+                     <option value="duration">Duração</option>
+                  </select>
+               </label>
+            </form>
+            <div class="video-grid" data-video-grid></div>
+            <p class="video-empty" data-video-empty hidden>Nenhum item encontrado.</p>
+         </section>
+
+         <dialog class="video-dialog" data-video-dialog aria-labelledby="player-title">
+            <div class="video-dialog-content">
+               <header>
+                  <h2 id="player-title" data-player-title>{{ current_video.title }}</h2>
+                  <button class="video-close" type="button" data-close-player aria-label="Fechar player">
+                     <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+               </header>
+               <div class="video-embed-frame" data-player-embed-wrap hidden>
+                  <iframe data-player-embed title="Player de vídeo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+               </div>
+               <video data-player-video controls preload="metadata"></video>
+               <p data-player-description>{{ current_video.description }}</p>
+            </div>
+         </dialog>
+      </main>
+
+      <footer>
+         <div class="footer">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-3">
+                     <a class="logo_footer" href="index.html"><img src="{{ url_for('static', filename='images/logo_footer.png') }}" alt="ACT-SP" /></a>
+                  </div>
+                  <div class="col-md-9">
+                     <form class="newslatter_form">
+                        <input class="ente" placeholder="Digite seu e-mail aqui!" type="text" name="email">
+                        <button class="subs_btn">Inscrever-se</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="copyright text_align_left">
+               <div class="container">
+                  <div class="row d_flex">
+                     <div class="col-md-6">
+                        <p>© 2026 ACT-SP. Todos os direitos reservados.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/mural.js') }}?v=card-player-3" defer></script>
+   </body>
+</html>
+
