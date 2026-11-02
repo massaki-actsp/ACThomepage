@@ -11,6 +11,7 @@ from urllib.parse import parse_qs, urlencode, urlparse
 TRUSTED_EMBED_HOSTS = {"www.youtube.com", "youtube.com", "m.youtube.com", "music.youtube.com",
                        "www.youtube-nocookie.com", "youtube-nocookie.com"}
 VIMEO_HOSTS = {"vimeo.com", "www.vimeo.com", "player.vimeo.com"}
+EXTERNAL_LINK_HOSTS = {"aguaviva.actsp.com.br"}
 VIMEO_HASH_PATTERN = re.compile(r"^[A-Za-z0-9]{6,64}$")
 YOUTUBE_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{6,}$")
 REQUIRED_COLUMNS = {"title", "description", "category", "poster", "provider"}
@@ -33,6 +34,7 @@ class VideoItem:
     caption: str | None = None
     featured: bool = False
     open_on_select: bool = False
+    external_url: str | None = None
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -64,8 +66,10 @@ DEFAULT_VIDEOS = (
         rating="Livre",
         poster="App_Geomap_616x465.png",
         banner="banner.jpg",
-        video="demo-01.mp4",
-        provider="local",
+        video="",
+        provider="external",
+        external_url="https://aguaviva.actsp.com.br/",
+        open_on_select=True,
     ),
     VideoItem(
         id=3,
@@ -147,6 +151,7 @@ def load_video_items_from_json(path: Path) -> list[VideoItem]:
                 "caption": item.get("caption"),
                 "featured": item.get("featured"),
                 "open_on_select": item.get("open_on_select"),
+                "external_url": item.get("external_url"),
             }
         )
 
@@ -164,7 +169,7 @@ def rows_to_video_items(rows) -> list[VideoItem]:
 
 def video_item_from_row(row: dict[str, str | None], fallback_id: int) -> VideoItem | None:
     provider = clean_text(row.get("provider")).lower() or "local"
-    if provider not in {"local", "youtube", "vimeo", "embed"}:
+    if provider not in {"local", "youtube", "vimeo", "embed", "external"}:
         return None
 
     title = clean_text(row.get("title"))
@@ -175,6 +180,9 @@ def video_item_from_row(row: dict[str, str | None], fallback_id: int) -> VideoIt
     raw_video = clean_text(row.get("video"))
     video = clean_static_file_name(raw_video)
     caption = clean_static_file_name(row.get("caption")) or None
+    external_url = normalize_external_url(row.get("external_url"))
+    if provider == "external" and not external_url:
+        return None
     embed_url = normalize_video_embed_url(row.get("embed_url") or row.get("url") or raw_video)
     detected_provider = "vimeo" if embed_url and "player.vimeo.com" in embed_url else "youtube"
     if provider == "embed" or (provider == "local" and embed_url and not video):
@@ -203,6 +211,7 @@ def video_item_from_row(row: dict[str, str | None], fallback_id: int) -> VideoIt
         caption=caption,
         featured=clean_bool(row.get("featured")),
         open_on_select=clean_bool(row.get("open_on_select")),
+        external_url=external_url if provider == "external" else None,
     )
 
 
@@ -217,6 +226,20 @@ def mark_local_availability(items: list[VideoItem], video_library_path: str) -> 
         for item in items
         if item.provider != "local" or item.video in available
     ] or items
+
+
+def normalize_external_url(value: str | None) -> str | None:
+    """Allow HTTPS navigation only to explicitly approved mural sites."""
+    url = clean_text(value)
+    if not url or any(ord(char) < 32 for char in url) or "\\" in url:
+        return None
+    try:
+        parsed = urlparse(url)
+        if parsed.scheme != "https" or parsed.netloc.lower() not in EXTERNAL_LINK_HOSTS:
+            return None
+    except ValueError:
+        return None
+    return url
 
 
 def normalize_video_embed_url(value: str | None) -> str | None:

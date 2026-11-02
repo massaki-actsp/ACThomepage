@@ -44,6 +44,7 @@ function normalizeVideo(item) {
     video: safeText(item.video, ""),
     provider: safeText(item.provider, "local"),
     embedUrl: safeText(item.embed_url, ""),
+    externalUrl: safeText(item.external_url, ""),
     caption: safeText(item.caption, ""),
     featured: Boolean(item.featured),
     openOnSelect: Boolean(item.open_on_select),
@@ -69,6 +70,10 @@ function setSelectedVideo(video, scrollToHero = false) {
   setText("[data-video-rating]", video.rating);
   setText("[data-player-title]", video.title);
   setText("[data-player-description]", video.description);
+  const playButton = document.querySelector("[data-open-player]");
+  if (playButton?.lastChild) {
+    playButton.lastChild.textContent = video.provider === "external" ? " Acessar site" : " Assistir agora";
+  }
 
   const heroImage = document.querySelector("[data-hero-image]");
   const heroVideo = document.querySelector("[data-hero-video]");
@@ -109,7 +114,8 @@ function createVideoCard(video, mode = "poster") {
   button.type = "button";
   button.className = mode === "poster" ? "video-poster-card" : "video-list-card";
   button.dataset.videoCard = String(video.id);
-  button.setAttribute("aria-label", `Selecionar vídeo ${video.title}`);
+  button.setAttribute("aria-label", video.provider === "external"
+    ? `Acessar site ${video.title}` : `Selecionar vídeo ${video.title}`);
 
   const image = document.createElement("img");
   image.src = paths.image(video.poster);
@@ -141,7 +147,7 @@ function createVideoCard(video, mode = "poster") {
   button.addEventListener("click", () => {
     setSelectedVideo(video, true);
     recordVideoClick(video, mode === "poster" ? "carousel" : "catalog");
-    if (video.openOnSelect) openPlayer();
+    if (video.provider === "external" || video.openOnSelect) openPlayer();
   });
   return button;
 }
@@ -198,6 +204,19 @@ function openPlayer() {
   const embedWrap = document.querySelector("[data-player-embed-wrap]");
   const embed = document.querySelector("[data-player-embed]");
   const video = videoState.selected;
+
+  if (video?.provider === "external") {
+    try {
+      const url = new URL(video.externalUrl);
+      if (url.protocol === "https:" && url.host === "aguaviva.actsp.com.br"
+          && !url.username && !url.password) {
+        window.location.assign(url.href);
+      }
+    } catch {
+      // Invalid catalog links must never trigger navigation.
+    }
+    return;
+  }
 
   if (!dialog || !player || !video) {
     return;
