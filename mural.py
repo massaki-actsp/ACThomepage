@@ -44,7 +44,7 @@ DEFAULT_VIDEOS = (
     VideoItem(
         id=1,
         title="SindCON ERP",
-        description="Demonstração do SindCON ERP, solução digital para apoiar gestão, processos e organização operacional.",
+        description="Demonstração da plataforma SindCON, solução digital para apoiar gestão, processos e organização operacional.",
         category="Sistema ERP",
         year=2026,
         duration="Demonstração",
